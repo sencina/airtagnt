@@ -1,8 +1,9 @@
 const { Telegraf } = require('telegraf');
+const useService = require("./Service");
 require('dotenv').config();
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
-
+const service = useService();
 
 bot.start((ctx) => ctx.reply('Welcome'));
 bot.help((ctx) => ctx.reply('Send /location to locate your AirTagn\'t'));
