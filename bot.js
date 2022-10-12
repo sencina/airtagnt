@@ -1,9 +1,10 @@
 const { Telegraf } = require('telegraf');
-const useService = require("./Service");
+const axios = require("axios");
 require('dotenv').config();
 
+const url = 'http://192.168.138.154'  //'http://172.20.10.4';
+
 const bot = new Telegraf(process.env.BOT_TOKEN);
-const service = useService();
 
 bot.start((ctx) => ctx.reply('Welcome'));
 bot.help((ctx) => ctx.reply('Send /location to locate your AirTagn\'t'));
@@ -11,13 +12,9 @@ bot.on('sticker', (ctx) => ctx.reply('👍'));
 
 bot.hears('/location', (ctx) => {
 
-    service.location().then((location) => {
-        const link = `https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}`;
-        ctx.reply(`Your AirTag is located at ${link}`);
+    axios.get(url + '/location').then(r => {
+        ctx.reply(r.data);
     })
-    .catch((err) => {
-        ctx.reply(`Error: ${err}`);
-    });
 
 });
 
