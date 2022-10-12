@@ -10,12 +10,14 @@ bot.help((ctx) => ctx.reply('Send /location to locate your AirTagn\'t'));
 bot.on('sticker', (ctx) => ctx.reply('👍'));
 
 bot.hears('/location', (ctx) => {
-    // send request to esp32 server
-    // save coordinates and generate google maps link
-    let lat = 2
-    let long = 2
-    let link = "www.google.com/maps/place/"+lat+","+long
-    ctx.reply(link)
+
+    service.location().then((location) => {
+        const link = `https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}`;
+        ctx.reply(`Your AirTag is located at ${link}`);
+    })
+    .catch((err) => {
+        ctx.reply(`Error: ${err}`);
+    });
 
 });
 
