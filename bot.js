@@ -1,10 +1,10 @@
 const { Telegraf } = require('telegraf');
 const axios = require("axios");
-require('dotenv').config();
+//require('dotenv').config();
 
-const url = 'http://192.168.59.49:3000';
+const url = 'https://airtagnt-server-production.up.railway.app';//'http://192.168.59.49:3000';
 
-const bot = new Telegraf(process.env.BOT_TOKEN);
+const bot = new Telegraf('5780663829:AAFSSlnbNp_kVLkAk9PuSGuvq4MhHqcPsAg');
 let authorized = false;
 
 bot.start((ctx) => ctx.reply('Welcome. Authenticate using /login password to use AirTagn\'t!'));
